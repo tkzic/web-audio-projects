@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type='text/javascript'>
+
+var ctx; //audio context
+var osc; // oscillator
+
+
+//init the sound system
+function init() {
+    console.log("in init");
+    try {
+        ctx = new webkitAudioContext(); //is there a better API for this?
+        makeThings();	// set up the audio components
+    } catch(e) {
+        alert('you need webaudio support');
+    }
+}
+window.addEventListener('load',init,false);
+
+// set up components 
+
+function makeThings() 
+{
+	
+	
+	setupButtons();
+	
+}
+
+
+
+//play the loaded file
+function play() 
+{
+   osc = ctx.createOscillator();	
+   osc.connect(ctx.destination);
+   osc.noteOn(0);
+}
+
+function stop()
+{
+	osc.noteOff(0);
+}
+
+
+function setupButtons() {
+    document.getElementById('play').onclick = function() {
+        play();
+    }
+    document.getElementById('stop').onclick = function() {
+		stop();
+	}
+     
+ 
+}
+
+
+</script>
+</head>
+<body>
+<h1>play an oscillator</h1>
+<form>
+<input type='button' id='play' value='play'/>
+<input type='button' id='stop' value='stop'/>
+</form>
+
+
+
+</body>
+</html>
+
